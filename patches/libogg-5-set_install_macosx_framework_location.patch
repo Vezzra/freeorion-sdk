@@ -1,13 +1,13 @@
 From 160b0e2ad3ad230d832e08cd989aedfe46a4d3a4 Mon Sep 17 00:00:00 2001
 From: Marcel Metz <mmetz@adrian-broher.net>
 Date: Tue, 8 Mar 2016 10:56:04 +0100
-Subject: [PATCH 3/3] CMake: Remove install MacOSX Framework location
+Subject: [PATCH 3/3] CMake: Set install MacOSX Framework location
 
 Users should be able to install the MacOSX Framework by pointing
-CMAKE_INSTALL_PREFIX to the corresponding `Frameworks` directory. For
-example to install into `/Library/Frameworks` configure with
+CMAKE_INSTALL_PREFIX to the corresponding directory. For example to install
+into `/Library/Frameworks` configure with
 
-cmake -DCMAKE_INSTALL_PREFIX=/Library/Frameworks <build dir>
+cmake -DCMAKE_INSTALL_PREFIX=/Library <build dir>
 ---
  CMakeLists.txt | 1 -
  1 file changed, 1 deletion(-)
@@ -16,11 +16,12 @@ diff --git a/CMakeLists.txt b/CMakeLists.txt
 index 407b901..570f5e2 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -110,7 +110,6 @@ install(TARGETS ogg
+@@ -110,7 +110,7 @@ install(TARGETS ogg
      RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
      LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
      ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
 -    FRAMEWORK DESTINATION ${CMAKE_INSTALL_LIBDIR}
++    FRAMEWORK DESTINATION "Frameworks"
      PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_FULL_INCLUDEDIR}/ogg
  )
  if(NOT WIN32 OR CYGWIN)

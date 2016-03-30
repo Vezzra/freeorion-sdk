@@ -326,10 +326,8 @@ ExternalProject_Add(sdl
 
 if(WIN32)
     set(LIBOGG_CONFIGURE_FLAGS "")
-    set(LIBOGG_CONFIGURE_INSTALL_DIR ${SDK_INSTALL_DIR})
 else()
     set(LIBOGG_CONFIGURE_FLAGS "-DBUILD_FRAMEWORK=ON")
-    set(LIBOGG_CONFIGURE_INSTALL_DIR ${SDK_INSTALL_DIR}/../Frameworks)
 endif()
 
 ExternalProject_Add(libogg
@@ -348,7 +346,7 @@ ExternalProject_Add(libogg
     COMMAND
         ${PATCH_EXECUTABLE} -p1 < ${CMAKE_SOURCE_DIR}/patches/libogg-4-install_headers_with_public_header_property_on_all_platforms.patch
     COMMAND
-        ${PATCH_EXECUTABLE} -p1 < ${CMAKE_SOURCE_DIR}/patches/libogg-5-remove_install_macosx_framework_location.patch
+        ${PATCH_EXECUTABLE} -p1 < ${CMAKE_SOURCE_DIR}/patches/libogg-5-set_install_macosx_framework_location.patch
     COMMAND ${CMAKE_COMMAND} -E rename
         <SOURCE_DIR>/configure.in
         <SOURCE_DIR>/configure.ac
