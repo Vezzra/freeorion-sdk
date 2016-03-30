@@ -324,6 +324,10 @@ ExternalProject_Add(sdl
     INSTALL_DIR ${SDK_INSTALL_DIR}
 )
 
+if(APPLE)
+    set(LIBOGG_CONFIGURE_FLAGS "-DBUILD_FRAMEWORK=ON")
+endif()
+
 ExternalProject_Add(libogg
     DEPENDS patch
     URL http://downloads.xiph.org/releases/ogg/libogg-1.3.2.tar.gz
@@ -344,6 +348,7 @@ ExternalProject_Add(libogg
         -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>
         -DBUILD_SHARED_LIBS=${BUILD_SHARED_LIBS}
         -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
+        ${LIBOGG_CONFIGURE_FLAGS}
     INSTALL_DIR ${SDK_INSTALL_DIR}
 )
 
