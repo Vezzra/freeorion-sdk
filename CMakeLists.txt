@@ -341,6 +341,8 @@ ExternalProject_Add(libogg
         ${PATCH_EXECUTABLE} -p1 < ${CMAKE_SOURCE_DIR}/patches/libogg-2-add_lib_prefix_to_output_files_on_windows.patch
     COMMAND
         ${PATCH_EXECUTABLE} -p1 < ${CMAKE_SOURCE_DIR}/patches/libogg-3-install_pdb_file_for_debug_and_relwithdebinfo.patch
+    COMMAND
+        ${PATCH_EXECUTABLE} -p1 < ${CMAKE_SOURCE_DIR}/patches/libogg-4-install_headers_with_public_header_property_on_all_platforms.patch
     COMMAND ${CMAKE_COMMAND} -E rename
         <SOURCE_DIR>/configure.in
         <SOURCE_DIR>/configure.ac
