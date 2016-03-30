@@ -352,6 +352,10 @@ ExternalProject_Add(libogg
     INSTALL_DIR ${SDK_INSTALL_DIR}
 )
 
+if(APPLE)
+    set(LIBVORBIS_CONFIGURE_FLAGS "-DBUILD_FRAMEWORK=ON")
+endif()
+
 ExternalProject_Add(libvorbis
     DEPENDS patch libogg
     URL http://downloads.xiph.org/releases/vorbis/libvorbis-1.3.5.tar.gz
@@ -379,6 +383,7 @@ ExternalProject_Add(libvorbis
         -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>
         -DBUILD_SHARED_LIBS=${BUILD_SHARED_LIBS}
         -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
+        ${LIBVORBIS_CONFIGURE_FLAGS}
     INSTALL_DIR ${SDK_INSTALL_DIR}
 )
 
