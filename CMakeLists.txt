@@ -359,7 +359,10 @@ ExternalProject_Add(libogg
 )
 
 if(APPLE)
-    set(LIBVORBIS_CONFIGURE_FLAGS "-DBUILD_FRAMEWORK=ON")
+    set(LIBVORBIS_CONFIGURE_FLAGS
+        -DBUILD_FRAMEWORK=ON
+        -DCMAKE_FRAMEWORK_PATH=${SDK_INSTALL_DIR}/Frameworks
+    )
 endif()
 
 ExternalProject_Add(libvorbis
