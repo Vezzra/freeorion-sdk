@@ -1,0 +1,31 @@
+# HG changeset patch
+# User Marcel Metz <mmetz@adrian-broher.net>
+# Date 1459452897 -7200
+#      Thu Mar 31 21:34:57 2016 +0200
+# Branch freeorion
+# Node ID 16858f40d9f6900731e36e72baf8e56aa95afe64
+# Parent  9b905464430099628e62992037ece229f1adad26
+CMake: Use install command for SDL2 target
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1300,12 +1300,12 @@
+ install(FILES ${INCLUDE_FILES} DESTINATION include/SDL2)
+ 
+ if(NOT WINDOWS OR CYGWIN)
+-  if(SDL_SHARED)
+-    install(CODE "
+-      execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink
+-      \"libSDL2-2.0.so\" \"libSDL2.so\")")
+-    install(FILES ${SDL2_BINARY_DIR}/libSDL2.so DESTINATION "lib${LIB_SUFFIX}")
+-  endif()
++  install(TARGETS SDL2
++    RUNTIME DESTINATION "bin"
++    LIBRARY DESTINATION "lib${LIB_SUFFIX}"
++    ARCHIVE DESTINATION "lib${LIB_SUFFIX}"
++    FRAMEWORK DESTINATION "Frameworks"
++  )
+   if(FREEBSD)
+     # FreeBSD uses ${PREFIX}/libdata/pkgconfig
+     install(FILES ${SDL2_BINARY_DIR}/sdl2.pc DESTINATION "libdata/pkgconfig")

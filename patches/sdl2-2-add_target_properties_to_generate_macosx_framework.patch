@@ -1,0 +1,39 @@
+# HG changeset patch
+# User Marcel Metz <mmetz@adrian-broher.net>
+# Date 1459449765 -7200
+#      Thu Mar 31 20:42:45 2016 +0200
+# Branch freeorion
+# Node ID 9b905464430099628e62992037ece229f1adad26
+# Parent  8d1b5ac551ae0cf02d5fd6179282281948b72ff8
+CMake: Add target properties to generate a MacOSX framework
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -246,6 +246,9 @@
+ set_option(VIDEO_COCOA         "Use Cocoa video driver" ${APPLE})
+ set_option(DIRECTX             "Use DirectX for Windows audio/video" ${WINDOWS})
+ set_option(RENDER_D3D          "Enable the Direct3D render driver" ${WINDOWS})
++if(APPLE)
++  set_option(BUILD_FRAMEWORK   "Build Framework bundle for OSX" OFF)
++endif()
+ 
+ # TODO: We should (should we?) respect cmake's ${BUILD_SHARED_LIBS} flag here
+ # The options below are for compatibility to configure's default behaviour.
+@@ -1253,6 +1256,16 @@
+       SOVERSION ${LT_REVISION}
+       OUTPUT_NAME "SDL2")
+   endif()
++  if(APPLE AND BUILD_FRAMEWORK)
++    set_target_properties(SDL2 PROPERTIES
++      FRAMEWORK TRUE
++      FRAMEWORK_VERSION ${SDL_VERSION}
++      MACOSX_FRAMEWORK_IDENTIFIER org.libsdl.SDL2
++      MACOSX_FRAMEWORK_SHORT_VERSION_STRING ${SDL_VERSION}
++      MACOSX_FRAMEWORK_BUNDLE_VERSION ${SDL_VERSION}
++      XCODE_ATTRIBUTE_INSTALL_PATH "@rpath"
++      OUTPUT_NAME "SDL2")
++  endif()
+  set(_INSTALL_LIBS "SDL2" ${_INSTALL_LIBS})
+  target_link_libraries(SDL2 ${EXTRA_LIBS} ${EXTRA_LDFLAGS})
+ endif()

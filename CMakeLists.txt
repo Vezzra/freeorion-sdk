@@ -305,6 +305,14 @@ ExternalProject_Add(freetype2
     INSTALL_DIR ${SDK_INSTALL_DIR}
 )
 
+if(WIN32)
+    set(SDL_CONFIGURE_FLAGS "")
+else()
+    set(SDL_CONFIGURE_FLAGS
+        -DBUILD_FRAMEWORK=ON
+    )
+endif()
+
 ExternalProject_Add(sdl
     DEPENDS patch
     URL https://www.libsdl.org/release/SDL2-2.0.3.tar.gz
@@ -314,6 +322,10 @@ ExternalProject_Add(sdl
         ${PATCH_EXECUTABLE} -p1 < ${CMAKE_SOURCE_DIR}/patches/sdl2-0-install_pdb_file_for_debug_and_relwithdebinfo.patch
     COMMAND
         ${PATCH_EXECUTABLE} -p1 < ${CMAKE_SOURCE_DIR}/patches/sdl2-1-dont_install_sdlmain.patch
+    COMMAND
+        ${PATCH_EXECUTABLE} -p1 < ${CMAKE_SOURCE_DIR}/patches/sdl2-2-add_target_properties_to_generate_macosx_framework.patch
+    COMMAND
+        ${PATCH_EXECUTABLE} -p1 < ${CMAKE_SOURCE_DIR}/patches/sdl2-3-use_install_command_for_sdl2_target.patch
     CMAKE_ARGS
         -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>
         -DBUILD_SHARED_LIBS=${BUILD_SHARED_LIBS}
@@ -321,6 +333,7 @@ ExternalProject_Add(sdl
         -DSDL_STATIC=OFF
         -DDIRECTX=OFF
         -DRENDER_D3D=OFF
+        ${SDL_CONFIGURE_FLAGS}
     INSTALL_DIR ${SDK_INSTALL_DIR}
 )
 
