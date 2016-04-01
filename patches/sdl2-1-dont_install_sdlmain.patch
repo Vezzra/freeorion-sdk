@@ -1,5 +1,14 @@
+From 9df70d55a0254dcbf2a25038767903d65085ef97 Mon Sep 17 00:00:00 2001
+From: Marcel Metz <mmetz@adrian-broher.net>
+Date: Fri, 1 Apr 2016 17:23:05 +0200
+Subject: [PATCH 2/5] Never build and install SDL2main library
+
+---
+ CMakeLists.txt | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 75a8937..6ce1695 100644
+index 8208732..72116d2 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -1236,9 +1236,9 @@ endif()

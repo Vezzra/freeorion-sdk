@@ -1,16 +1,17 @@
-# HG changeset patch
-# User Marcel Metz <mmetz@adrian-broher.net>
-# Date 1459449765 -7200
-#      Thu Mar 31 20:42:45 2016 +0200
-# Branch freeorion
-# Node ID 9b905464430099628e62992037ece229f1adad26
-# Parent  8d1b5ac551ae0cf02d5fd6179282281948b72ff8
-CMake: Add target properties to generate a MacOSX framework
+From 3e9fe98cec6b3fb59b1b31183f570e3314a453be Mon Sep 17 00:00:00 2001
+From: Marcel Metz <mmetz@adrian-broher.net>
+Date: Fri, 1 Apr 2016 18:10:19 +0200
+Subject: [PATCH 4/5] CMake: Add MacOSX Framework support
+
+---
+ CMakeLists.txt | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 1b22b5f..db000cf 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -246,6 +246,9 @@
+@@ -246,6 +246,9 @@ endforeach()
  set_option(VIDEO_COCOA         "Use Cocoa video driver" ${APPLE})
  set_option(DIRECTX             "Use DirectX for Windows audio/video" ${WINDOWS})
  set_option(RENDER_D3D          "Enable the Direct3D render driver" ${WINDOWS})
@@ -20,7 +21,7 @@ diff --git a/CMakeLists.txt b/CMakeLists.txt
  
  # TODO: We should (should we?) respect cmake's ${BUILD_SHARED_LIBS} flag here
  # The options below are for compatibility to configure's default behaviour.
-@@ -1253,6 +1256,16 @@
+@@ -1263,6 +1266,16 @@ if(SDL_SHARED)
        SOVERSION ${LT_REVISION}
        OUTPUT_NAME "SDL2")
    endif()
@@ -37,3 +38,12 @@ diff --git a/CMakeLists.txt b/CMakeLists.txt
   set(_INSTALL_LIBS "SDL2" ${_INSTALL_LIBS})
   target_link_libraries(SDL2 ${EXTRA_LIBS} ${EXTRA_LDFLAGS})
  endif()
+@@ -1290,7 +1303,7 @@ install(TARGETS ${_INSTALL_LIBS}
+   ARCHIVE DESTINATION "lib${LIB_SUFFIX}"
+   PUBLIC_HEADER DESTINATION DESTINATION include/SDL2)
+ 
+-if(NOT WINDOWS OR CYGWIN)
++if((NOT WINDOWS OR CYGWIN) AND (NOT BUILD_FRAMEWORK))
+   if(SDL_SHARED)
+     install(CODE "
+       execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink

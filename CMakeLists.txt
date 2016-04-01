@@ -323,9 +323,11 @@ ExternalProject_Add(sdl
     COMMAND
         ${PATCH_EXECUTABLE} -p1 < ${CMAKE_SOURCE_DIR}/patches/sdl2-1-dont_install_sdlmain.patch
     COMMAND
-        ${PATCH_EXECUTABLE} -p1 < ${CMAKE_SOURCE_DIR}/patches/sdl2-2-add_target_properties_to_generate_macosx_framework.patch
+        ${PATCH_EXECUTABLE} -p1 < ${CMAKE_SOURCE_DIR}/patches/sdl2-2-use_public_header_property_to_install_headers.patch
     COMMAND
-        ${PATCH_EXECUTABLE} -p1 < ${CMAKE_SOURCE_DIR}/patches/sdl2-3-use_install_command_for_sdl2_target.patch
+        ${PATCH_EXECUTABLE} -p1 < ${CMAKE_SOURCE_DIR}/patches/sdl2-3-add_target_properties_to_generate_macosx_framework.patch
+    COMMAND
+        ${PATCH_EXECUTABLE} -p1 < ${CMAKE_SOURCE_DIR}/patches/sdl2-4-set_framework_install_directory.patch
     CMAKE_ARGS
         -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>
         -DBUILD_SHARED_LIBS=${BUILD_SHARED_LIBS}
