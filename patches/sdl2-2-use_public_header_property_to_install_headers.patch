@@ -8,7 +8,7 @@ Subject: [PATCH 3/5] CMake: Use PUBLIC_HEADER property to install headers
  1 file changed, 15 insertions(+), 11 deletions(-)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 72116d2..1b22b5f 100644
+index 72116d2..dcf2eff 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -1240,8 +1240,18 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${EXTRA_CFLAGS}")
@@ -56,7 +56,7 @@ index 72116d2..1b22b5f 100644
 -list(APPEND INCLUDE_FILES ${BIN_INCLUDE_FILES})
 -install(FILES ${INCLUDE_FILES} DESTINATION include/SDL2)
 +  ARCHIVE DESTINATION "lib${LIB_SUFFIX}"
-+  PUBLIC_HEADER DESTINATION DESTINATION include/SDL2)
++  PUBLIC_HEADER DESTINATION include/SDL2)
  
  if(NOT WINDOWS OR CYGWIN)
    if(SDL_SHARED)

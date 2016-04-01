@@ -1,0 +1,33 @@
+From 1cfe2ee5712e51677124747d0f857d712d7e17aa Mon Sep 17 00:00:00 2001
+From: Marcel Metz <mmetz@adrian-broher.net>
+Date: Fri, 1 Apr 2016 22:54:01 +0200
+Subject: [PATCH] CMake: set RUNTIME destination for all targets
+
+---
+ CMakeLists.txt | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 8878c64..11ccae5 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1299,6 +1299,7 @@ endif()
+ 
+ ##### Installation targets #####
+ install(TARGETS ${_INSTALL_LIBS}
++  RUNTIME DESTINATION bin
+   LIBRARY DESTINATION "lib${LIB_SUFFIX}"
+   ARCHIVE DESTINATION "lib${LIB_SUFFIX}"
+   FRAMEWORK DESTINATION "Frameworks"
+@@ -1321,8 +1322,6 @@ if((NOT WINDOWS OR CYGWIN) AND (NOT BUILD_FRAMEWORK))
+   install(PROGRAMS ${SDL2_BINARY_DIR}/sdl2-config DESTINATION bin)
+   # TODO: what about the .spec file? Is it only needed for RPM creation?
+   install(FILES "${SDL2_SOURCE_DIR}/sdl2.m4" DESTINATION "share/aclocal")
+-else()
+-  install(TARGETS SDL2 RUNTIME DESTINATION bin)
+ endif()
+ 
+ if(SDL_SHARED AND (MSVC_VERSION GREATER 1500) AND (NOT CMAKE_VERSION VERSION_LESS "3.1"))
+-- 
+2.5.0
+
