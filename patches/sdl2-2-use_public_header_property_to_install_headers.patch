@@ -1,14 +1,14 @@
-From 1df1d2866582e80fbbfafbcd69fdf9fa7bf714a8 Mon Sep 17 00:00:00 2001
+From f48429a1b8d36ee9f5aba202db1eafa9a6ba8533 Mon Sep 17 00:00:00 2001
 From: Marcel Metz <mmetz@adrian-broher.net>
 Date: Fri, 1 Apr 2016 17:51:35 +0200
-Subject: [PATCH 3/5] CMake: Use PUBLIC_HEADER property to install headers
+Subject: [PATCH 3/6] CMake: Use PUBLIC_HEADER property to install headers
 
 ---
- CMakeLists.txt | 26 +++++++++++++++-----------
- 1 file changed, 15 insertions(+), 11 deletions(-)
+ CMakeLists.txt | 30 +++++++++++++++++-------------
+ 1 file changed, 17 insertions(+), 13 deletions(-)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 72116d2..dcf2eff 100644
+index 72116d2..f66d617 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -1240,8 +1240,18 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${EXTRA_CFLAGS}")
@@ -24,17 +24,20 @@ index 72116d2..dcf2eff 100644
 +list(APPEND INCLUDE_FILES ${BIN_INCLUDE_FILES})
 +
  if(SDL_SHARED)
-   add_library(SDL2 SHARED ${SOURCE_FILES})
+-  add_library(SDL2 SHARED ${SOURCE_FILES})
++  add_library(SDL2 SHARED ${INCLUDE_FILES} ${SOURCE_FILES})
 +  set_target_properties(SDL2 PROPERTIES
 +      PUBLIC_HEADER "${INCLUDE_FILES}")
    if(UNIX)
      set_target_properties(SDL2 PROPERTIES
        VERSION ${LT_VERSION}
-@@ -1260,7 +1270,9 @@ endif()
+@@ -1259,8 +1269,10 @@ endif()
+ 
  if(SDL_STATIC)
    set (BUILD_SHARED_LIBS FALSE)
-   add_library(SDL2-static STATIC ${SOURCE_FILES})
+-  add_library(SDL2-static STATIC ${SOURCE_FILES})
 -  set_target_properties(SDL2-static PROPERTIES OUTPUT_NAME "SDL2")
++  add_library(SDL2-static STATIC ${INCLUDE_FILES} ${SOURCE_FILES})
 +  set_target_properties(SDL2-static PROPERTIES
 +      PUBLIC_HEADER "${INCLUDE_FILES}"
 +      OUTPUT_NAME "SDL2")
