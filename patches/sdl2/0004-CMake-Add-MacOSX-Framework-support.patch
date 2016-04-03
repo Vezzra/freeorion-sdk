@@ -1,14 +1,14 @@
-From 3e9fe98cec6b3fb59b1b31183f570e3314a453be Mon Sep 17 00:00:00 2001
+From 5ff5a6af760c3671021f943ddcc4bd0c354b2167 Mon Sep 17 00:00:00 2001
 From: Marcel Metz <mmetz@adrian-broher.net>
 Date: Fri, 1 Apr 2016 18:10:19 +0200
-Subject: [PATCH 4/5] CMake: Add MacOSX Framework support
+Subject: [PATCH 4/6] CMake: Add MacOSX Framework support
 
 ---
  CMakeLists.txt | 15 ++++++++++++++-
  1 file changed, 14 insertions(+), 1 deletion(-)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 1b22b5f..db000cf 100644
+index f66d617..a5c32ab 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -246,6 +246,9 @@ endforeach()
@@ -47,3 +47,6 @@ index 1b22b5f..db000cf 100644
    if(SDL_SHARED)
      install(CODE "
        execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink
+-- 
+2.5.0
+

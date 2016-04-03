@@ -313,23 +313,23 @@ else()
     )
 endif()
 
-ExternalProject_Add(sdl
+ExternalProject_Add(sdl2
     DEPENDS patch
     URL https://www.libsdl.org/release/SDL2-2.0.3.tar.gz
     URL_MD5 fe6c61d2e9df9ef570e7e80c6e822537
     DOWNLOAD_DIR ${SDK_DOWNLOAD_DIR}
     PATCH_COMMAND
-        ${PATCH_EXECUTABLE} -p1 < ${CMAKE_SOURCE_DIR}/patches/sdl2-0-install_pdb_file_for_debug_and_relwithdebinfo.patch
+        ${PATCH_EXECUTABLE} -p1 < ${CMAKE_SOURCE_DIR}/patches/sdl2/0001-CMake-Install-pdb-file-for-Debug-and-RelWithDebInfo-.patch
     COMMAND
-        ${PATCH_EXECUTABLE} -p1 < ${CMAKE_SOURCE_DIR}/patches/sdl2-1-dont_install_sdlmain.patch
+        ${PATCH_EXECUTABLE} -p1 < ${CMAKE_SOURCE_DIR}/patches/sdl2/0002-Never-build-and-install-SDL2main-library.patch
     COMMAND
-        ${PATCH_EXECUTABLE} -p1 < ${CMAKE_SOURCE_DIR}/patches/sdl2-2-use_public_header_property_to_install_headers.patch
+        ${PATCH_EXECUTABLE} -p1 < ${CMAKE_SOURCE_DIR}/patches/sdl2/0003-CMake-Use-PUBLIC_HEADER-property-to-install-headers.patch
     COMMAND
-        ${PATCH_EXECUTABLE} -p1 < ${CMAKE_SOURCE_DIR}/patches/sdl2-3-add_target_properties_to_generate_macosx_framework.patch
+        ${PATCH_EXECUTABLE} -p1 < ${CMAKE_SOURCE_DIR}/patches/sdl2/0004-CMake-Add-MacOSX-Framework-support.patch
     COMMAND
-        ${PATCH_EXECUTABLE} -p1 < ${CMAKE_SOURCE_DIR}/patches/sdl2-4-set_framework_install_directory.patch
+        ${PATCH_EXECUTABLE} -p1 < ${CMAKE_SOURCE_DIR}/patches/sdl2/0005-CMake-Set-framework-install-directory.patch
     COMMAND
-        ${PATCH_EXECUTABLE} -p1 < ${CMAKE_SOURCE_DIR}/patches/sdl2-5-set_runtime_destination_for_all_targets.patch
+        ${PATCH_EXECUTABLE} -p1 < ${CMAKE_SOURCE_DIR}/patches/sdl2/0006-CMake-set-RUNTIME-destination-for-all-targets.patch
     CMAKE_ARGS
         -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>
         -DBUILD_SHARED_LIBS=${BUILD_SHARED_LIBS}
@@ -588,7 +588,7 @@ string(TIMESTAMP DIST_TS "%Y-%m-%d" UTC)
 if(WIN32)
     add_custom_target(dist ALL
         DEPENDS
-            zip zlib libpng python-cmake python freetype2 sdl
+            zip zlib libpng python-cmake python freetype2 sdl2
             libogg libvorbis openal-soft glew boost
         WORKING_DIRECTORY
             ${SDK_INSTALL_DIR}

@@ -1,14 +1,14 @@
-From 1cfe2ee5712e51677124747d0f857d712d7e17aa Mon Sep 17 00:00:00 2001
+From 6249d711ef69ec0ee0e0f46229a47083b28a06e0 Mon Sep 17 00:00:00 2001
 From: Marcel Metz <mmetz@adrian-broher.net>
 Date: Fri, 1 Apr 2016 22:54:01 +0200
-Subject: [PATCH] CMake: set RUNTIME destination for all targets
+Subject: [PATCH 6/6] CMake: set RUNTIME destination for all targets
 
 ---
  CMakeLists.txt | 3 +--
  1 file changed, 1 insertion(+), 2 deletions(-)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 8878c64..11ccae5 100644
+index 6f3744c..6082a01 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -1299,6 +1299,7 @@ endif()
