@@ -1,9 +1,20 @@
+From 6c24f238f477c83653a444ed7606efb3813d8b3c Mon Sep 17 00:00:00 2001
+From: stopiccot <alexey.petruchik@gmail.com>
+Date: Sat, 16 May 2015 16:03:37 +0300
+Subject: [PATCH 01/10] Add CMake script to build ogg.
+
+Signed-off-by: Ralph Giles <giles@mozilla.com>
+---
+ CMakeLists.txt | 94 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 94 insertions(+)
+ create mode 100644 CMakeLists.txt
+
 diff --git a/CMakeLists.txt b/CMakeLists.txt
 new file mode 100644
-index 0000000..fdd5d88
+index 0000000..b26471f
 --- /dev/null
 +++ b/CMakeLists.txt
-@@ -0,0 +1,105 @@
+@@ -0,0 +1,94 @@
 +cmake_minimum_required(VERSION 2.8.7)
 +project(libogg)
 +
@@ -25,34 +36,14 @@ index 0000000..fdd5d88
 +set(PROJECT_VERSION_PATCH ${CMAKE_MATCH_3})
 +set(PROJECT_VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH})
 +
-+# Helper function to get version-info
-+function(get_version_info result current_var_name age_var_name revision_var_name)
-+    string(REGEX MATCH "${current_var_name}=([0-9]*)" DUMMY ${CONFIGURE_AC_CONTENTS})
-+    set(VERSION_INFO_CURRENT ${CMAKE_MATCH_1})
-+
-+    string(REGEX MATCH "${age_var_name}=([0-9]*)" DUMMY ${CONFIGURE_AC_CONTENTS})
-+    set(VERSION_INFO_AGE ${CMAKE_MATCH_1})
-+
-+    string(REGEX MATCH "${revision_var_name}=([0-9]*)" DUMMY ${CONFIGURE_AC_CONTENTS})
-+    set(VERSION_INFO_REVISION ${CMAKE_MATCH_1})
-+
-+    math(EXPR VERSION_INFO_CURRENT_MINUS_AGE "${VERSION_INFO_CURRENT} - ${VERSION_INFO_AGE}")
-+
-+    set(${result} "${VERSION_INFO_CURRENT_MINUS_AGE}.${VERSION_INFO_AGE}.${VERSION_INFO_REVISION}" PARENT_SCOPE)
-+endfunction()
-+
-+# Helper function to configure pkg-config files
-+function(configure_pkg_config_file pkg_config_file_in)
-+    set(prefix ${CMAKE_INSTALL_PREFIX})
-+    set(exec_prefix ${CMAKE_INSTALL_FULL_BINDIR})
-+    set(libdir ${CMAKE_INSTALL_FULL_LIBDIR})
-+    set(includedir ${CMAKE_INSTALL_FULL_INCLUDEDIR})
-+    set(VERSION ${PROJECT_VERSION})
-+    string(REPLACE ".in" "" pkg_config_file ${pkg_config_file_in})
-+    configure_file(${pkg_config_file_in} ${CMAKE_CURRENT_SOURCE_DIR}/${pkg_config_file} @ONLY)
-+endfunction()
++# Extract so library version from configure.ac
++string(REGEX MATCH "LIB_AGE=([0-9]*)" DUMMY ${CONFIGURE_AC_CONTENTS})
++set(LIB_AGE ${CMAKE_MATCH_1})
++string(REGEX MATCH "LIB_REVISION=([0-9]*)" DUMMY ${CONFIGURE_AC_CONTENTS})
++set(LIB_REVISION ${CMAKE_MATCH_1})
 +
 +message(STATUS "Configuring ${PROJECT_NAME} ${PROJECT_VERSION}")
++message(STATUS "Shared library version 0.${LIB_AGE}.${LIB_REVISION}")
 +
 +# Configure config_type.h
 +check_include_files(inttypes.h INCLUDE_INTTYPES_H)
@@ -65,7 +56,7 @@ index 0000000..fdd5d88
 +set(USIZE32 uint32_t)
 +set(SIZE64 int64_t)
 +
-+configure_file(include/ogg/config_types.h.in ${CMAKE_CURRENT_SOURCE_DIR}/include/ogg/config_types.h @ONLY)
++configure_file(include/ogg/config_types.h.in include/ogg/config_types.h @ONLY)
 +
 +set(OGG_HEADERS
 +    include/ogg/ogg.h
@@ -87,9 +78,7 @@ index 0000000..fdd5d88
 +
 +include_directories(include)
 +add_library(ogg ${OGG_HEADERS} ${OGG_SOURCES})
-+
-+get_version_info(OGG_VERSION_INFO "LIB_CURRENT" "LIB_AGE" "LIB_REVISION")
-+set_target_properties(ogg PROPERTIES SOVERSION ${OGG_VERSION_INFO})
++set_target_properties(ogg PROPERTIES SOVERSION "0.${LIB_AGE}.${LIB_REVISION}")
 +
 +if(BUILD_FRAMEWORK)
 +    set_target_properties(ogg PROPERTIES
@@ -104,8 +93,23 @@ index 0000000..fdd5d88
 +    )
 +endif()
 +
++# Configure pkg-config files
++function(configure_pkg_config_file pkg_config_file_in)
++    set(prefix ${CMAKE_INSTALL_PREFIX})
++    set(exec_prefix ${CMAKE_INSTALL_FULL_BINDIR})
++    set(libdir ${CMAKE_INSTALL_FULL_LIBDIR})
++    set(includedir ${CMAKE_INSTALL_FULL_INCLUDEDIR})
++    set(VERSION ${PROJECT_VERSION})
++    string(REPLACE ".in" "" pkg_config_file ${pkg_config_file_in})
++    configure_file(${pkg_config_file_in} ${pkg_config_file} @ONLY)
++endfunction()
++
 +configure_pkg_config_file(ogg.pc.in)
 +
-+install(FILES include/ogg/ogg.h include/ogg/os_types.h include/ogg/config_types.h DESTINATION ${CMAKE_INSTALL_FULL_INCLUDEDIR}/ogg)
++install(FILES include/ogg/ogg.h include/ogg/os_types.h include/ogg/config_types.h DESTINATION ${CMAKE_INSTALL_FULL_INCLUDEDIR})
 +install(TARGETS ogg RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR} LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} FRAMEWORK DESTINATION ${CMAKE_INSTALL_LIBDIR})
 +install(FILES ogg.pc DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
+\ No newline at end of file
+-- 
+2.5.0
+

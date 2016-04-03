@@ -1,0 +1,26 @@
+From 2c583d5adc9a603d343b10c797f1c374b00b760e Mon Sep 17 00:00:00 2001
+From: stopiccot <alexey.petruchik@gmail.com>
+Date: Sun, 14 Jun 2015 21:16:00 +0300
+Subject: [PATCH 03/10] Fixing cmake header install path
+
+Signed-off-by: Ralph Giles <giles@thaumas.net>
+---
+ CMakeLists.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 78cc082..8cdf478 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -100,6 +100,6 @@ endif()
+ 
+ configure_pkg_config_file(ogg.pc.in)
+ 
+-install(FILES include/ogg/ogg.h include/ogg/os_types.h include/ogg/config_types.h DESTINATION ${CMAKE_INSTALL_FULL_INCLUDEDIR})
++install(FILES include/ogg/ogg.h include/ogg/os_types.h include/ogg/config_types.h DESTINATION ${CMAKE_INSTALL_FULL_INCLUDEDIR}/ogg)
+ install(TARGETS ogg RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR} LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} FRAMEWORK DESTINATION ${CMAKE_INSTALL_LIBDIR})
+ install(FILES ogg.pc DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
+\ No newline at end of file
+-- 
+2.5.0
+

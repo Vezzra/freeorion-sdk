@@ -1,0 +1,38 @@
+From 9b2ba419aecb4a1c97114545d57174593dc13111 Mon Sep 17 00:00:00 2001
+From: George Gerdin <georgegerdin@gmail.com>
+Date: Sun, 19 Jul 2015 00:17:50 +0200
+Subject: [PATCH 05/10] Fix CMake source tree file generation.
+
+Minor change to CMakeLists.txt to make sure config_types.h and ogg.pc get
+generated in the source tree as expected.
+
+Signed-off-by: Ralph Giles <giles@thaumas.net>
+---
+ CMakeLists.txt | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index bcfa313..fdd5d88 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -43,7 +43,7 @@ function(configure_pkg_config_file pkg_config_file_in)
+     set(includedir ${CMAKE_INSTALL_FULL_INCLUDEDIR})
+     set(VERSION ${PROJECT_VERSION})
+     string(REPLACE ".in" "" pkg_config_file ${pkg_config_file_in})
+-    configure_file(${pkg_config_file_in} ${pkg_config_file} @ONLY)
++    configure_file(${pkg_config_file_in} ${CMAKE_CURRENT_SOURCE_DIR}/${pkg_config_file} @ONLY)
+ endfunction()
+ 
+ message(STATUS "Configuring ${PROJECT_NAME} ${PROJECT_VERSION}")
+@@ -59,7 +59,7 @@ set(SIZE32 int32_t)
+ set(USIZE32 uint32_t)
+ set(SIZE64 int64_t)
+ 
+-configure_file(include/ogg/config_types.h.in include/ogg/config_types.h @ONLY)
++configure_file(include/ogg/config_types.h.in ${CMAKE_CURRENT_SOURCE_DIR}/include/ogg/config_types.h @ONLY)
+ 
+ set(OGG_HEADERS
+     include/ogg/ogg.h
+-- 
+2.5.0
+

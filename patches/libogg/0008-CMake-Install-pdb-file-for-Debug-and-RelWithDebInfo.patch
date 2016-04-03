@@ -1,3 +1,13 @@
+From a054524f879227683c766184e6be7db7d8a783d0 Mon Sep 17 00:00:00 2001
+From: Marcel Metz <mmetz@adrian-broher.net>
+Date: Tue, 8 Mar 2016 10:56:04 +0100
+Subject: [PATCH 08/10] CMake: Install pdb file for `Debug` and
+ `RelWithDebInfo`
+
+---
+ CMakeLists.txt | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
 diff --git a/CMakeLists.txt b/CMakeLists.txt
 index f989049..a6d6c1b 100644
 --- a/CMakeLists.txt
@@ -13,3 +23,6 @@ index f989049..a6d6c1b 100644
 +        CONFIGURATIONS Debug RelWithDebInfo
 +    )
 +endif()
+-- 
+2.5.0
+

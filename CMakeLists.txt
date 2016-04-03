@@ -353,17 +353,25 @@ ExternalProject_Add(libogg
     URL_MD5 b72e1a1dbadff3248e4ed62a4177e937
     DOWNLOAD_DIR ${SDK_DOWNLOAD_DIR}
     PATCH_COMMAND
-        ${PATCH_EXECUTABLE} -p1 < ${CMAKE_SOURCE_DIR}/patches/libogg-0-upstream_cmake-v1.3.2..9b2ba41.patch
+        ${PATCH_EXECUTABLE} -p1 < ${CMAKE_SOURCE_DIR}/patches/libogg/0001-Add-CMake-script-to-build-ogg.patch
     COMMAND
-        ${PATCH_EXECUTABLE} -p1 < ${CMAKE_SOURCE_DIR}/patches/libogg-1-dont_install_pkgconfig_on_windows.patch
+        ${PATCH_EXECUTABLE} -p1 < ${CMAKE_SOURCE_DIR}/patches/libogg/0002-Fixing-cmake-shared-library-version-info.patch
     COMMAND
-        ${PATCH_EXECUTABLE} -p1 < ${CMAKE_SOURCE_DIR}/patches/libogg-2-add_lib_prefix_to_output_files_on_windows.patch
+        ${PATCH_EXECUTABLE} -p1 < ${CMAKE_SOURCE_DIR}/patches/libogg/0003-Fixing-cmake-header-install-path.patch
     COMMAND
-        ${PATCH_EXECUTABLE} -p1 < ${CMAKE_SOURCE_DIR}/patches/libogg-3-install_pdb_file_for_debug_and_relwithdebinfo.patch
+        ${PATCH_EXECUTABLE} -p1 < ${CMAKE_SOURCE_DIR}/patches/libogg/0004-Remove-trailing-whitespace.patch
     COMMAND
-        ${PATCH_EXECUTABLE} -p1 < ${CMAKE_SOURCE_DIR}/patches/libogg-4-install_headers_with_public_header_property_on_all_platforms.patch
+        ${PATCH_EXECUTABLE} -p1 < ${CMAKE_SOURCE_DIR}/patches/libogg/0005-Fix-CMake-source-tree-file-generation.patch
     COMMAND
-        ${PATCH_EXECUTABLE} -p1 < ${CMAKE_SOURCE_DIR}/patches/libogg-5-set_install_macosx_framework_location.patch
+        ${PATCH_EXECUTABLE} -p1 < ${CMAKE_SOURCE_DIR}/patches/libogg/0006-CMake-Don-t-install-pkg-config-files-on-Windows.patch
+    COMMAND
+        ${PATCH_EXECUTABLE} -p1 < ${CMAKE_SOURCE_DIR}/patches/libogg/0007-CMake-Add-lib-prefix-to-output-files-on-Windows.patch
+    COMMAND
+        ${PATCH_EXECUTABLE} -p1 < ${CMAKE_SOURCE_DIR}/patches/libogg/0008-CMake-Install-pdb-file-for-Debug-and-RelWithDebInfo.patch
+    COMMAND
+        ${PATCH_EXECUTABLE} -p1 < ${CMAKE_SOURCE_DIR}/patches/libogg/0009-CMake-Install-headers-with-PUBLIC_HEADER-property-on.patch
+    COMMAND
+        ${PATCH_EXECUTABLE} -p1 < ${CMAKE_SOURCE_DIR}/patches/libogg/0010-CMake-Set-install-MacOSX-Framework-location-to-Frame.patch
     COMMAND ${CMAKE_COMMAND} -E rename
         <SOURCE_DIR>/configure.in
         <SOURCE_DIR>/configure.ac

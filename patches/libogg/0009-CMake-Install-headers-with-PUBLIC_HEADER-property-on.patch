@@ -1,8 +1,8 @@
 From 0a171ce02a648741ea183eee819927c2d3ff64b6 Mon Sep 17 00:00:00 2001
 From: Marcel Metz <mmetz@adrian-broher.net>
 Date: Tue, 8 Mar 2016 10:56:04 +0100
-Subject: [PATCH 2/3] CMake: Install headers with PUBLIC_HEADER property on all
- platforms
+Subject: [PATCH 09/10] CMake: Install headers with PUBLIC_HEADER property on
+ all platforms
 
 This prevents the duplicate installation of header inside the framework
 and in the regular include directory.

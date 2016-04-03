@@ -1,3 +1,14 @@
+From 2e409523ed8b01c7c0e9f42d0b8d83b10017ef84 Mon Sep 17 00:00:00 2001
+From: Marcel Metz <mmetz@adrian-broher.net>
+Date: Tue, 8 Mar 2016 10:47:52 +0100
+Subject: [PATCH 07/10] CMake: Add 'lib' prefix to output files on Windows
+
+This mimics the current library naming configuration of the MSVC project
+files.
+---
+ CMakeLists.txt | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
 diff --git a/CMakeLists.txt b/CMakeLists.txt
 index 807c7bb..f989049 100644
 --- a/CMakeLists.txt
@@ -16,3 +27,6 @@ index 807c7bb..f989049 100644
  
  if(BUILD_FRAMEWORK)
      set_target_properties(ogg PROPERTIES
+-- 
+2.5.0
+

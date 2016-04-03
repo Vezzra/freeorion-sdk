@@ -1,0 +1,32 @@
+From c5a911f050acb7117f9ac9d560a8bee221f0f9b6 Mon Sep 17 00:00:00 2001
+From: Ralph Giles <giles@thaumas.net>
+Date: Thu, 18 Jun 2015 13:58:15 -0700
+Subject: [PATCH 04/10] Remove trailing whitespace.
+
+---
+ CMakeLists.txt | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 8cdf478..bcfa313 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -23,7 +23,7 @@ set(PROJECT_VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_
+ function(get_version_info result current_var_name age_var_name revision_var_name)
+     string(REGEX MATCH "${current_var_name}=([0-9]*)" DUMMY ${CONFIGURE_AC_CONTENTS})
+     set(VERSION_INFO_CURRENT ${CMAKE_MATCH_1})
+-    
++
+     string(REGEX MATCH "${age_var_name}=([0-9]*)" DUMMY ${CONFIGURE_AC_CONTENTS})
+     set(VERSION_INFO_AGE ${CMAKE_MATCH_1})
+ 
+@@ -102,4 +102,4 @@ configure_pkg_config_file(ogg.pc.in)
+ 
+ install(FILES include/ogg/ogg.h include/ogg/os_types.h include/ogg/config_types.h DESTINATION ${CMAKE_INSTALL_FULL_INCLUDEDIR}/ogg)
+ install(TARGETS ogg RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR} LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} FRAMEWORK DESTINATION ${CMAKE_INSTALL_LIBDIR})
+-install(FILES ogg.pc DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
+\ No newline at end of file
++install(FILES ogg.pc DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
+-- 
+2.5.0
+

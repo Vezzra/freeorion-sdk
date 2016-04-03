@@ -1,3 +1,13 @@
+From 45214c0ec0d21132032e5495849fc8b2f29492fc Mon Sep 17 00:00:00 2001
+From: Marcel Metz <mmetz@adrian-broher.net>
+Date: Tue, 8 Mar 2016 10:43:20 +0100
+Subject: [PATCH 06/10] CMake: Don't install pkg-config files on Windows
+
+Except if the build system is Cygwin.
+---
+ CMakeLists.txt | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
 diff --git a/CMakeLists.txt b/CMakeLists.txt
 index fdd5d88..807c7bb 100644
 --- a/CMakeLists.txt
@@ -10,3 +20,6 @@ index fdd5d88..807c7bb 100644
 +if(NOT WIN32 OR CYGWIN)
 +    install(FILES ogg.pc DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
 +endif()
+-- 
+2.5.0
+
