@@ -177,6 +177,10 @@ ExternalProject_Add(python-cmake
         ${PATCH_EXECUTABLE} -p1 < ${CMAKE_SOURCE_DIR}/patches/python-cmake/0002-Don-t-export-python-cmake-targets.patch
     COMMAND
         ${PATCH_EXECUTABLE} -p1 < ${CMAKE_SOURCE_DIR}/patches/python-cmake/0003-Change-pathes-to-match-current-SDK-layout.patch
+    COMMAND
+        ${PATCH_EXECUTABLE} -p1 < ${CMAKE_SOURCE_DIR}/patches/python-cmake/0004-Install-libpython-header-via-PUBLIC_HEADER-property.patch
+    COMMAND
+        ${PATCH_EXECUTABLE} -p1 < ${CMAKE_SOURCE_DIR}/patches/python-cmake/0005-Add-Mac-OSX-framework-support.patch
     CONFIGURE_COMMAND ""
     BUILD_COMMAND ""
     INSTALL_COMMAND ""
@@ -190,6 +194,14 @@ if(BUILD_SHARED_LIBS)
     set(PYTHON_BUILD_STATIC OFF)
 else()
     set(PYTHON_BUILD_STATIC ON)
+endif()
+
+if(WIN32)
+    set(PYTHON_CONFIGURE_FLAGS "")
+else()
+    set(PYTHON_CONFIGURE_FLAGS
+        -DBUILD_FRAMEWORK=ON
+    )
 endif()
 
 ExternalProject_Add(python
@@ -207,6 +219,7 @@ ExternalProject_Add(python
         -DBUILD_STATIC=${PYTHON_BUILD_STATIC}
         -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
         -DPY_VERSION=${PYTHON_VERSION}
+        ${PYTHON_CONFIGURE_FLAGS}
         -DDOWNLOAD_SOURCES=OFF
         -DBUILD_TESTING=OFF
         -DBUILD_WININST=OFF

@@ -1,7 +1,7 @@
 From 1ab20cf32aeadbdd253445aafde1dd9c05ab4d37 Mon Sep 17 00:00:00 2001
 From: Marcel Metz <mmetz@adrian-broher.net>
 Date: Mon, 21 Mar 2016 20:39:55 +0100
-Subject: [PATCH 3/3] Change pathes to match current SDK layout
+Subject: [PATCH 3/5] Change pathes to match current SDK layout
 
 ---
  CMakeLists.txt | 9 +++------
@@ -42,5 +42,5 @@ index 2f395c1..05aafee 100644
  # Directories specific to 'libpython'
  set(LIBPYTHON_LIBDIR ${LIBDIR})
 -- 
-2.5.0
+2.5.5
 

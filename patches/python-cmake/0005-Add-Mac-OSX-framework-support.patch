@@ -1,0 +1,35 @@
+From ffff44279d3e65b9a7ef5f299c5a713754300068 Mon Sep 17 00:00:00 2001
+From: Marcel Metz <mmetz@adrian-broher.net>
+Date: Sat, 9 Apr 2016 20:16:24 +0200
+Subject: [PATCH 5/5] Add Mac OSX framework support
+
+---
+ cmake/libpython/CMakeLists.txt | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/cmake/libpython/CMakeLists.txt b/cmake/libpython/CMakeLists.txt
+index 6d5b0a2..c55aa3c 100644
+--- a/cmake/libpython/CMakeLists.txt
++++ b/cmake/libpython/CMakeLists.txt
+@@ -492,6 +492,18 @@ if(BUILD_SHARED)
+         set_property(
+             SOURCE ${SRC_DIR}/Modules/posixmodule.c
+             APPEND PROPERTY COMPILE_DEFINITIONS WITH_NEXT_FRAMEWORK)
++
++        if(BUILD_FRAMEWORK)
++            set_target_properties(libpython-shared PROPERTIES
++                FRAMEWORK TRUE
++                FRAMEWORK_VERSION "${PY_VERSION_MAJOR}.${PY_VERSION_MINOR}"
++                MACOSX_FRAMEWORK_IDENTIFIER org.python.python
++                MACOSX_FRAMEWORK_SHORT_VERSION_STRING "${PY_VERSION_MAJOR}.${PY_VERSION_MINOR}"
++                MACOSX_FRAMEWORK_BUNDLE_VERSION "${PY_VERSION_MAJOR}.${PY_VERSION_MINOR}"
++                XCODE_ATTRIBUTE_INSTALL_PATH "@rpath"
++                OUTPUT_NAME Python
++            )
++        endif()
+     endif()
+ 
+     set(targetname "libpython3-shared")
+-- 
+2.5.5
+

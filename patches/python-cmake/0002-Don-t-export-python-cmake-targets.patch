@@ -1,7 +1,7 @@
 From 569af88461fa28f54b28c2bcd5d37dc27b85c7b4 Mon Sep 17 00:00:00 2001
 From: Marcel Metz <mmetz@adrian-broher.net>
 Date: Mon, 21 Mar 2016 20:39:08 +0100
-Subject: [PATCH 2/3] Don't export python cmake targets
+Subject: [PATCH 2/5] Don't export python cmake targets
 
 ---
  CMakeLists.txt                 | 6 ------
@@ -53,5 +53,5 @@ index 8f9df41..2031eda 100644
  # See "is_python_build()" in sysconfig.py
  add_custom_command(TARGET python PRE_BUILD
 -- 
-2.5.0
+2.5.5
 
