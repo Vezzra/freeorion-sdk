@@ -1,4 +1,4 @@
-From 5978639496dadeb0528be2a726ed857b88cd6cbb Mon Sep 17 00:00:00 2001
+From f5994e8fb1b5d021d3e1cec0e789188e25e7bf1d Mon Sep 17 00:00:00 2001
 From: Marcel Metz <mmetz@adrian-broher.net>
 Date: Sat, 9 Apr 2016 20:16:24 +0200
 Subject: [PATCH 5/5] Add Mac OSX framework support
@@ -30,10 +30,27 @@ index 05aafee..5e55a89 100644
  # Append an item to a string if it does not already contain it.  Any additional
  # arguments are treated as extra "set" arguments
 diff --git a/cmake/libpython/CMakeLists.txt b/cmake/libpython/CMakeLists.txt
-index 6d5b0a2..7ad5cc0 100644
+index 6d5b0a2..525baa2 100644
 --- a/cmake/libpython/CMakeLists.txt
 +++ b/cmake/libpython/CMakeLists.txt
-@@ -467,6 +467,7 @@ function(add_libpython name type)
+@@ -462,11 +462,24 @@ function(add_libpython name type)
+     # Export target
+     set_property(GLOBAL APPEND PROPERTY PYTHON_TARGETS ${name})
+ 
++    if(BUILD_FRAMEWORK)
++        set_target_properties(${name} PROPERTIES
++            FRAMEWORK TRUE
++            FRAMEWORK_VERSION "${PY_VERSION_MAJOR}.${PY_VERSION_MINOR}"
++            MACOSX_FRAMEWORK_IDENTIFIER org.python.python
++            MACOSX_FRAMEWORK_SHORT_VERSION_STRING "${PY_VERSION_MAJOR}.${PY_VERSION_MINOR}"
++            MACOSX_FRAMEWORK_BUNDLE_VERSION "${PY_VERSION_MAJOR}.${PY_VERSION_MINOR}"
++            XCODE_ATTRIBUTE_INSTALL_PATH "@rpath"
++            OUTPUT_NAME Python
++        )
++    endif()
++
+     install(TARGETS ${name}
+         ARCHIVE DESTINATION ${LIBPYTHON_ARCHIVEDIR}
          LIBRARY DESTINATION ${LIBPYTHON_LIBDIR}
          RUNTIME DESTINATION ${LIBPYTHON_LIBDIR}
          PUBLIC_HEADER DESTINATION ${INCLUDE_INSTALL_DIR} COMPONENT Development
@@ -41,25 +58,6 @@ index 6d5b0a2..7ad5cc0 100644
      )
  endfunction()
  
-@@ -492,6 +493,18 @@ if(BUILD_SHARED)
-         set_property(
-             SOURCE ${SRC_DIR}/Modules/posixmodule.c
-             APPEND PROPERTY COMPILE_DEFINITIONS WITH_NEXT_FRAMEWORK)
-+
-+        if(BUILD_FRAMEWORK)
-+            set_target_properties(libpython-shared PROPERTIES
-+                FRAMEWORK TRUE
-+                FRAMEWORK_VERSION "${PY_VERSION_MAJOR}.${PY_VERSION_MINOR}"
-+                MACOSX_FRAMEWORK_IDENTIFIER org.python.python
-+                MACOSX_FRAMEWORK_SHORT_VERSION_STRING "${PY_VERSION_MAJOR}.${PY_VERSION_MINOR}"
-+                MACOSX_FRAMEWORK_BUNDLE_VERSION "${PY_VERSION_MAJOR}.${PY_VERSION_MINOR}"
-+                XCODE_ATTRIBUTE_INSTALL_PATH "@rpath"
-+                OUTPUT_NAME Python
-+            )
-+        endif()
-     endif()
- 
-     set(targetname "libpython3-shared")
 -- 
 2.5.5
 
