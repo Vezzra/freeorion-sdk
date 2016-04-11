@@ -1,12 +1,34 @@
-From f7cfaf6eff710f873a5fd2633c88c9b085450898 Mon Sep 17 00:00:00 2001
+From 5978639496dadeb0528be2a726ed857b88cd6cbb Mon Sep 17 00:00:00 2001
 From: Marcel Metz <mmetz@adrian-broher.net>
 Date: Sat, 9 Apr 2016 20:16:24 +0200
 Subject: [PATCH 5/5] Add Mac OSX framework support
 
 ---
+ CMakeLists.txt                 | 10 ++++++++++
  cmake/libpython/CMakeLists.txt | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+ 2 files changed, 23 insertions(+)
 
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 05aafee..5e55a89 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -48,6 +48,16 @@ else()
+   set(BUILD_WININST OFF)
+   set(BUILD_WININST_ALWAYS OFF)
+ endif()
++if(APPLE)
++  option(BUILD_FRAMEWORK "Build a Mac OSX Framework" OFF)
++  if(BUILD_FRAMEWORK)
++    set(BUILD_SHARED ON)
++    set(BUILD_STATIC OFF)
++  endif()
++else()
++  set(BUILD_FRAMEWORK OFF)
++endif()
++
+ 
+ # Append an item to a string if it does not already contain it.  Any additional
+ # arguments are treated as extra "set" arguments
 diff --git a/cmake/libpython/CMakeLists.txt b/cmake/libpython/CMakeLists.txt
 index 6d5b0a2..7ad5cc0 100644
 --- a/cmake/libpython/CMakeLists.txt
