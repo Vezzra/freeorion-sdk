@@ -1,17 +1,25 @@
-From ffff44279d3e65b9a7ef5f299c5a713754300068 Mon Sep 17 00:00:00 2001
+From f7cfaf6eff710f873a5fd2633c88c9b085450898 Mon Sep 17 00:00:00 2001
 From: Marcel Metz <mmetz@adrian-broher.net>
 Date: Sat, 9 Apr 2016 20:16:24 +0200
 Subject: [PATCH 5/5] Add Mac OSX framework support
 
 ---
- cmake/libpython/CMakeLists.txt | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ cmake/libpython/CMakeLists.txt | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
 diff --git a/cmake/libpython/CMakeLists.txt b/cmake/libpython/CMakeLists.txt
-index 6d5b0a2..c55aa3c 100644
+index 6d5b0a2..7ad5cc0 100644
 --- a/cmake/libpython/CMakeLists.txt
 +++ b/cmake/libpython/CMakeLists.txt
-@@ -492,6 +492,18 @@ if(BUILD_SHARED)
+@@ -467,6 +467,7 @@ function(add_libpython name type)
+         LIBRARY DESTINATION ${LIBPYTHON_LIBDIR}
+         RUNTIME DESTINATION ${LIBPYTHON_LIBDIR}
+         PUBLIC_HEADER DESTINATION ${INCLUDE_INSTALL_DIR} COMPONENT Development
++        FRAMEWORK DESTINATION "Frameworks"
+     )
+ endfunction()
+ 
+@@ -492,6 +493,18 @@ if(BUILD_SHARED)
          set_property(
              SOURCE ${SRC_DIR}/Modules/posixmodule.c
              APPEND PROPERTY COMPILE_DEFINITIONS WITH_NEXT_FRAMEWORK)
